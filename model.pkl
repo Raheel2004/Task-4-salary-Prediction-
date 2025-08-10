@@ -1,0 +1,16 @@
+# Model train karke save karna
+from sklearn.ensemble import RandomForestRegressor
+import joblib
+import pandas as pd
+
+# Data load
+dataset = pd.read_csv("https://raw.githubusercontent.com/Raheel2004/Task-4-salary-Prediction-/main/Employers_data.csv")
+
+X = dataset.drop("Salary", axis=1)
+y = dataset["Salary"]
+
+model = RandomForestRegressor()
+model.fit(X, y)
+
+# Save model
+joblib.dump(model, "random_forest_model.pkl")
