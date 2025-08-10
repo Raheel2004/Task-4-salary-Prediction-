@@ -63,23 +63,16 @@ evaluate(rf)
 # Save this section as app.py for deployment
 import streamlit as st
 import pandas as pd
-import joblib
-
 
 import joblib
 import requests
 from io import BytesIO
 
-# GitHub raw URL for your .pkl file
-url = "https://raw.githubusercontent.com/Raheel2004/Task-4-salary-Prediction-/main/random_forest_model.pkl"
-
-# Download and load the model
+url = "https://raw.githubusercontent.com/Raheel2004/Task-4-salary-Prediction-/main/model.pkl"
 response = requests.get(url)
+response.raise_for_status()  # will raise error if file not found
+
 rf = joblib.load(BytesIO(response.content))
-
-
-# Load saved model and preprocessing objects
-rf = joblib.load("random_forest_model.pkl")
 label_encoders = joblib.load("label_encoders.pkl")
 scaler = joblib.load("scaler.pkl")
 
