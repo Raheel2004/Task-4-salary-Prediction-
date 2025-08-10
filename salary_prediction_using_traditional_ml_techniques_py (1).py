@@ -13,7 +13,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import streamlit as st
 
 #1. Choose a Dataset
-dataset = pd.read_csv("salary prediction\Employers_data.csv")  # Local file in repo
+dataset = pd.read_csv("data\Employers_data.csv")  # Local file in repo
 
 # Step 3: Data Preprocessing
 # Check for nulls
