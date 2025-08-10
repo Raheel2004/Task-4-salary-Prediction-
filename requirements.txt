@@ -1,0 +1,10 @@
+pandas
+matplotlib.pyplot
+numpy
+streamlit
+scikit-learn
+pandas 
+numpy 
+joblib
+xgboost
+
