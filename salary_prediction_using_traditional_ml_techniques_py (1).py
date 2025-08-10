@@ -18,15 +18,16 @@ import streamlit as st
 
 #1. Choose a Dataset
 import pandas as pd
-from google.colab import drive
 
-# Mount Google Drive
-drive.mount('/content/drive')
 
 # Update the path to your CSV file
 # Make sure the file 'kaggle datasets.csv' is in the root of your Google Drive
 # Load the datasets
-dataset = pd.read_csv('/content/drive/MyDrive/Employers_data.csv')
+import pandas as pd
+
+
+dataset = pd.read_csv("https://raw.githubusercontent.com/Raheek2004/repo/main/data/Employers_data.csv")
+
 dataset.head()
 
 # Step 3: Data Preprocessing
