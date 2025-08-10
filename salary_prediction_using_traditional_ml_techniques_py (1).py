@@ -61,7 +61,7 @@ evaluate(rf)
 
 import streamlit as st
 import pandas as pd
-import joblib
+
 import requests
 from io import BytesIO
 
