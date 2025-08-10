@@ -101,4 +101,4 @@ st.success(f"Predicted Salary: ${prediction:,.2f}")
 # Step 9: Deployment
 # Use 'render.yaml' or Render Dashboard to deploy the app
 
-!pip install streamlit
+
