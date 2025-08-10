@@ -59,46 +59,50 @@ evaluate(lr)
 print("Random Forest Regressor Evaluation")
 evaluate(rf)
 
-# Step 8: Streamlit App
-# Save this section as app.py for deployment
 import streamlit as st
 import pandas as pd
-
 import joblib
 import requests
 from io import BytesIO
 
-url = "https://raw.githubusercontent.com/Raheel2004/Task-4-salary-Prediction-/main/model.pkl"
-response = requests.get(url)
-response.raise_for_status()  # will raise error if file not found
+st.title("💼 Salary Prediction App")
 
-rf = joblib.load(BytesIO(response.content))
-label_encoders = joblib.load("label_encoders.pkl")
-scaler = joblib.load("scaler.pkl")
+# Model load function
+@st.cache_resource
+def load_model():
+    try:
+        url = "https://github.com/Raheel2004/Task-4-salary-Prediction-/raw/main/salary_model.pkl"
+        response = requests.get(url)
+        response.raise_for_status()
+        return joblib.load(BytesIO(response.content))
+    except Exception as e:
+        st.error(f"❌ Model load failed: {e}")
+        return None
 
-# App title
-st.title("Salary Prediction App")
+model = load_model()
 
-# User inputs
-age = st.slider("Age", 20, 60)
-experience = st.slider("Experience", 0, 40)
-education = st.selectbox("Education Level", list(label_encoders['Education'].classes_))
-skill = st.selectbox("Skill Level", list(label_encoders['Skill Level'].classes_))
+# User input fields
+st.sidebar.header("Enter Employee Details")
+age = st.sidebar.number_input("Age", 18, 65, 30)
+experience = st.sidebar.number_input("Years of Experience", 0, 40, 5)
+education = st.sidebar.selectbox("Education Level", ["High School", "Bachelor", "Master", "PhD"])
 
-# Convert input to DataFrame
+# Convert to DataFrame
 input_df = pd.DataFrame({
-    'Age': [age],
-    'Experience': [experience],
-    'Education': [label_encoders['Education'].transform([education])[0]],
-    'Skill Level': [label_encoders['Skill Level'].transform([skill])[0]]
+    "age": [age],
+    "experience": [experience],
+    "education": [education]
 })
 
-# Scale numerical columns
-input_df[['Age', 'Experience']] = scaler.transform(input_df[['Age', 'Experience']])
+# Prediction
+if st.sidebar.button("Predict Salary"):
+    if model:
+        try:
+            prediction = model.predict(input_df)[0]
+            st.success(f"💰 Predicted Salary: ${prediction:,.2f}")
+        except Exception as e:
+            st.error(f"Prediction failed: {e}")
+    else:
+        st.error("Model not available. Please check the model file.")
 
-# Make prediction
-prediction = rf.predict(input_df)[0]
-
-# Display result
-st.success(f"Predicted Salary: ${prediction:,.2f}")
-
+st.write("ℹ️ This app predicts employee salary using a trained ML model.")
