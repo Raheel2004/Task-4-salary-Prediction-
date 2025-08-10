@@ -61,7 +61,6 @@ evaluate(rf)
 
 # Step 8: Streamlit App
 # Save this section as app.py for deployment
-"""
 import streamlit as st
 import pandas as pd
 import joblib
