@@ -1,6 +1,8 @@
 pandas
 matplotlib.pyplot
+plotly
 numpy
+seaborn 
 streamlit
 scikit-learn
 pandas 
