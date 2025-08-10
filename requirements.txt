@@ -1,5 +1,5 @@
 pandas
-matplotlib.pyplot
+matplotlib
 plotly
 numpy
 seaborn 
@@ -9,4 +9,5 @@ pandas
 numpy 
 joblib
 xgboost
+
 
